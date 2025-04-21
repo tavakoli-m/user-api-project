@@ -7,4 +7,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('user',\App\Http\Controllers\UserController::class);
+Route::middleware('throttle:api')->group(function () {
+    Route::apiResource('user',\App\Http\Controllers\UserController::class);
+});
